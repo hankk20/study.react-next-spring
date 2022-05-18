@@ -1,0 +1,45 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      INDENT_OUTPUT: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    database: h2
+  datasource:
+    embedded-database-connection: h2
+    name: pre
+    url: jdbc:h2:mem:pre_test;LOCK_TIMEOUT=100000
+  h2:
+    console:
+      enabled: true
+      path: /pre-db
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: 3b7e65e83a22de3fdc600c7c9004e5c0
+            client-secret: tOitS3Mmzxn6iHMN8lDW3tLk5TO2wi8V
+            authorization-grant-type: authorization_code
+            client-name: kakao
+            client-authentication-method: POST
+            scope: openid
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            #user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-info-uri: https://kapi.kakao.com/v1/oidc/userinfo
+            user-name-attribute: sub
+            issuer-uri: https://kauth.kakao.com
+            jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
+

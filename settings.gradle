@@ -1,0 +1,4 @@
+rootProject.name = 'react-pilot'
+include 'pilot-core'
+include 'pilot-front'
+
