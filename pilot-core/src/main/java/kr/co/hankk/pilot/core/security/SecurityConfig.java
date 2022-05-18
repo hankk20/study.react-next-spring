@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Set;
 
@@ -23,20 +25,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         OidcUserService oidcUserService = new OidcUserService();
         oidcUserService.setAccessibleScopes(Set.of("account_email", "openid", "phone_number"));
 
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+
         http.authorizeRequests()
                 .anyRequest().authenticated()
-                .and()
-            .oauth2Client()
                 .and()
             .oauth2Login()
                 .userInfoEndpoint()
                 .oidcUserService(oidcUserService)
+                .and()
+                .successHandler((request, response, authentication) -> {
+                    response.sendRedirect("http://localhost:3000/me");
+                })
+                .and()
+                .csrf().disable()
+                .cors()
+                .configurationSource(urlBasedCorsConfigurationSource)
                 ;
 
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+
         super.configure(web);
     }
+
 }
