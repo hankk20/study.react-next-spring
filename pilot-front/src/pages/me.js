@@ -1,14 +1,27 @@
-import Link from "next/link";
 import axios from "axios";
+import {useEffect, useState} from "react";
 
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:8080"
 export default function Home() {
-    axios.get("http://localhost:8080/member")
-        .then((res) => {
-            console.log(res);
-        })
-  return (
+    const [users, setUsers] = useState({});
+    const fetchUsers = async () => {
+        const users = await axios.get("/member")
+            .then(res => res.data);
+        setUsers(users)
+    }
+
+    useEffect(() => {fetchUsers()}, []);
+    console.log(users?.claims?.phone_number)
+    return (
       <>
-        <div>Member</div>
+          {users && users.claims && (
+              <>
+                  <div>{users.email}</div>
+                  <div>{users.claims.phone_number}</div>
+              </>
+          )}
+
       </>
   )
 }
