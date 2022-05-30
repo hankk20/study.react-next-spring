@@ -29,10 +29,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOriginPatterns(List.of("http://localhost"));
+        corsConfiguration.setAllowedOriginPatterns(List.of("http://localhost*"));
         corsConfiguration.setAllowCredentials(true);
 
         http.authorizeRequests()
+                .antMatchers("/inquiry")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
             .oauth2Login()

@@ -13,4 +13,9 @@ public class MemberController {
     public ResponseEntity getMember(@AuthenticationPrincipal(expression = "userInfo") OidcUserInfo userInfo){
         return ResponseEntity.ok(userInfo);
     }
+
+    @GetMapping("/inquiry")
+    public ResponseEntity inquiry(){
+        return ResponseEntity.ok("");
+    }
 }
