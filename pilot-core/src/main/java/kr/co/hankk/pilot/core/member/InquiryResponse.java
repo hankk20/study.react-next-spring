@@ -9,6 +9,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class InquiryResponse {
 
-    @Builder.Default
     private final String result;
 }
