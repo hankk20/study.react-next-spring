@@ -19,7 +19,7 @@ public class MemberController {
     }
 
     @PostMapping("/inquiry")
-    public ResponseEntity inquiry(@RequestBody InquiryRequest request){
+    public ResponseEntity<InquiryResponse> inquiry(@RequestBody InquiryRequest request){
         log.debug(request.toString());
         return ResponseEntity.ok(new InquiryResponse("success"));
     }
