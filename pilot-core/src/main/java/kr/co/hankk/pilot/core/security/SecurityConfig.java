@@ -44,8 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oidcUserService(oidcUserService)
                 .and()
                 .successHandler((request, response, authentication) -> {
-                    response.sendRedirect("http://localhost:3000/me");
+                    response.sendRedirect("http://localhost:3000/");
                 })
+                .and()
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("http://localhost:3000/")
                 .and()
                 .csrf().disable()
                 .cors()
