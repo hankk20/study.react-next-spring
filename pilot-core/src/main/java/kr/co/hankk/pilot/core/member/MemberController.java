@@ -23,4 +23,9 @@ public class MemberController {
         log.debug(request.toString());
         return ResponseEntity.ok(new InquiryResponse("success"));
     }
+
+    @PostMapping("/admin")
+    public ResponseEntity<OidcUserInfo> inquiry(@AuthenticationPrincipal(expression = "userInfo") OidcUserInfo userInfo){
+        return ResponseEntity.ok(userInfo);
+    }
 }

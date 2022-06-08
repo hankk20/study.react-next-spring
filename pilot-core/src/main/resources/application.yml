@@ -42,4 +42,6 @@ spring:
             user-name-attribute: sub
             issuer-uri: https://kauth.kakao.com
             jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
-
+logging:
+  level:
+    root: debug
